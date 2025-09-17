@@ -11,6 +11,7 @@ options.add_argument("--disable-dev-shm-usage")
 options.binary_location = "/usr/bin/chromium"
 
 driver = webdriver.Chrome(options=options)
+
 driver.get("http://mosir-lancut.pl/asp/pl_start.asp?typ=14&menu=135&strona=1")
 driver.implicitly_wait(5)
 
@@ -31,4 +32,5 @@ with open("frekwencja.csv", "a") as f:
     f.write(f"{timestamp},{aktualna},{maksymalna}\n")
 
 driver.quit()
+
 
