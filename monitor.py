@@ -8,10 +8,11 @@ options = Options()
 options.add_argument("--headless")
 options.add_argument("--no-sandbox")
 options.add_argument("--disable-dev-shm-usage")
+options.add_argument("--disable-gpu")
+options.add_argument("--window-size=1920x1080")
 options.binary_location = "/usr/bin/chromium"
 
-driver = webdriver.Chrome(options=options)
-
+driver = webdriver.Chrome(executable_path="/usr/bin/chromedriver", options=options)
 driver.get("http://mosir-lancut.pl/asp/pl_start.asp?typ=14&menu=135&strona=1")
 driver.implicitly_wait(5)
 
@@ -32,5 +33,3 @@ with open("frekwencja.csv", "a") as f:
     f.write(f"{timestamp},{aktualna},{maksymalna}\n")
 
 driver.quit()
-
-
