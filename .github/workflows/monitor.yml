@@ -1,8 +1,8 @@
-name: Monitor MOSiR (Ubuntu + Selenium)
+name: Monitor MOSiR (Selenium)
 
 on:
   schedule:
-    - cron: '*/15 * * * *'  # co 15 minut
+    - cron: '*/15 * * * *'
   workflow_dispatch:
 
 jobs:
@@ -16,8 +16,9 @@ jobs:
     - name: Install Chromium and ChromeDriver
       run: |
         sudo apt-get update
-        sudo apt-get install -y chromium-browser chromium-chromedriver
-        sudo ln -s /usr/lib/chromium-browser/chromedriver /usr/bin/chromedriver
+        sudo apt-get install -y chromium-driver chromium
+        which chromedriver
+        which chromium
 
     - name: Install Python dependencies
       run: |
