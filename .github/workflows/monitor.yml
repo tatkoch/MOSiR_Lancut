@@ -1,0 +1,33 @@
+name: Monitor MOSiR
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+
+jobs:
+  run-monitor:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: pip install beautifulsoup4 requests
+
+    - name: Run monitor script
+      run: python monitor.py
+
+    - name: Commit results
+      run: |
+        git config --global user.name "github-actions"
+        git config --global user.email "actions@github.com"
+        git add frekwencja.csv
+        git commit -m "Aktualizacja danych: $(date)"
+        git push
