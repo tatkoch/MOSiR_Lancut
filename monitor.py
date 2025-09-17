@@ -1,24 +1,32 @@
-import requests
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
 from datetime import datetime
 import re
 
-url = "http://mosir-lancut.pl/asp/pl_start.asp?typ=14&menu=135&strona=1"
-response = requests.get(url)
-soup = BeautifulSoup(response.text, 'html.parser')
+options = Options()
+options.add_argument("--headless")
+options.add_argument("--no-sandbox")
+options.add_argument("--disable-dev-shm-usage")
 
-pattern = re.compile(r"AKTUALNA LICZBA OSÓB NA BASENIE.*?(\d{1,2}) / (\d{1,3})")
-text = soup.get_text()
-match = pattern.search(text)
+driver = webdriver.Chrome(options=options)
+driver.get("http://mosir-lancut.pl/asp/pl_start.asp?typ=14&menu=135&strona=1")
+driver.implicitly_wait(5)
 
+html = driver.page_source
+soup = BeautifulSoup(html, 'html.parser')
+
+match = soup.find(string=re.compile(r"\d{1,2} / \d{1,3}"))
 if match:
-    aktualna = match.group(1)
-    maksymalna = match.group(2)
+    liczby = re.findall(r"\d{1,3}", match)
+    aktualna = liczby[0]
+    maksymalna = liczby[1]
 else:
     aktualna = "Brak"
     maksymalna = "Brak"
 
 timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
 with open("frekwencja.csv", "a") as f:
     f.write(f"{timestamp},{aktualna},{maksymalna}\n")
+
+driver.quit()
