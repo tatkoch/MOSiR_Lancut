@@ -13,15 +13,14 @@ jobs:
     - name: Checkout repo
       uses: actions/checkout@v3
 
-- name: Install Chromium and ChromeDriver
-  run: |
-    sudo apt-get update
-    sudo apt-get install -y chromium chromium-driver
-    echo "Chromium path:"
-    which chromium
-    echo "ChromeDriver path:"
-    which chromedriver
-
+    - name: Install Chromium and ChromeDriver
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y chromium chromium-driver
+        echo "Chromium path:"
+        which chromium
+        echo "ChromeDriver path:"
+        which chromedriver
 
     - name: Install Python dependencies
       run: |
