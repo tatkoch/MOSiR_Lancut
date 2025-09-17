@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
 from datetime import datetime
@@ -12,7 +13,9 @@ options.add_argument("--disable-gpu")
 options.add_argument("--window-size=1920x1080")
 options.binary_location = "/usr/bin/chromium"
 
-driver = webdriver.Chrome(executable_path="/usr/bin/chromedriver", options=options)
+service = Service("/usr/bin/chromedriver")
+driver = webdriver.Chrome(service=service, options=options)
+
 driver.get("http://mosir-lancut.pl/asp/pl_start.asp?typ=14&menu=135&strona=1")
 driver.implicitly_wait(5)
 
