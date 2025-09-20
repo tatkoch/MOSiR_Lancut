@@ -22,7 +22,7 @@ jobs:
 
     - name: Install Python dependencies
       run: |
-        pip install selenium beautifulsoup4 webdriver-manager
+        pip install selenium beautifulsoup4 webdriver-manager pytz
 
     - name: Run monitor script
       run: python monitor.py
@@ -31,4 +31,6 @@ jobs:
       uses: stefanzweifel/git-auto-commit-action@v4
       with:
         commit_message: "Aktualizacja danych: $(date)"
-        file_pattern: frekwencja.csv
+        file_pattern: |
+          frekwencja.csv
+          log.txt
