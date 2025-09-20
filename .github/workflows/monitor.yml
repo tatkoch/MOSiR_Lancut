@@ -22,10 +22,10 @@ jobs:
         echo "ChromeDriver path:"
         which chromedriver
 
-    - name: Install Python dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install selenium beautifulsoup4
+- name: Install Python dependencies
+  run: |
+    pip install selenium beautifulsoup4
+
 
     - name: Run monitor script
       run: python monitor.py
