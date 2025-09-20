@@ -11,7 +11,7 @@ options.add_argument("--no-sandbox")
 options.add_argument("--disable-dev-shm-usage")
 options.add_argument("--disable-gpu")
 options.add_argument("--window-size=1920x1080")
-options.binary_location = "/usr/bin/chromium"
+options.binary_location = "/usr/bin/google-chrome"
 
 service = Service("/usr/bin/chromedriver")
 driver = webdriver.Chrome(service=service, options=options)
