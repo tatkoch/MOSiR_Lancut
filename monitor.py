@@ -4,6 +4,7 @@ from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
 from datetime import datetime
+from pytz import timezone
 import re
 import time
 
@@ -35,8 +36,15 @@ else:
     aktualna = "Brak"
     maksymalna = "Brak"
 
-timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+# Czas lokalny dla Polski
+timestamp = datetime.now(timezone('Europe/Warsaw')).strftime("%Y-%m-%d %H:%M:%S")
+
+# Zapis danych
 with open("frekwencja.csv", "a") as f:
     f.write(f"{timestamp},{aktualna},{maksymalna}\n")
+
+# Zapis logu (wymusza commit)
+with open("log.txt", "a") as log:
+    log.write(f"{timestamp} - uruchomiono monitor\n")
 
 driver.quit()
