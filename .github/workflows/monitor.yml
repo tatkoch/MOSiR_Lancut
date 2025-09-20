@@ -13,20 +13,16 @@ jobs:
     - name: Checkout repo
       uses: actions/checkout@v3
 
-    - name: Install Google Chrome and ChromeDriver
+    - name: Install Google Chrome
       run: |
         sudo apt-get update
         sudo apt-get install -y wget unzip
         wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
         sudo apt install -y ./google-chrome-stable_current_amd64.deb
-        wget https://chromedriver.storage.googleapis.com/114.0.5735.90/chromedriver_linux64.zip
-        unzip chromedriver_linux64.zip
-        sudo mv chromedriver /usr/bin/chromedriver
-        sudo chmod +x /usr/bin/chromedriver
 
     - name: Install Python dependencies
       run: |
-        pip install selenium beautifulsoup4
+        pip install selenium beautifulsoup4 webdriver-manager
 
     - name: Run monitor script
       run: python monitor.py
