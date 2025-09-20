@@ -2,8 +2,8 @@ name: Monitor MOSiR (Selenium)
 
 on:
   schedule:
-    - cron: '*/15 * * * *'  # uruchamiaj co 15 minut
-  workflow_dispatch:         # pozwala uruchomić ręcznie
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
 
 jobs:
   run-monitor:
@@ -13,14 +13,16 @@ jobs:
     - name: Checkout repo
       uses: actions/checkout@v3
 
-    - name: Install Chromium and ChromeDriver
+    - name: Install Google Chrome and ChromeDriver
       run: |
         sudo apt-get update
-        sudo apt-get install -y chromium chromium-driver
-        echo "Chromium path:"
-        which chromium
-        echo "ChromeDriver path:"
-        which chromedriver
+        sudo apt-get install -y wget unzip
+        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+        sudo apt install -y ./google-chrome-stable_current_amd64.deb
+        wget https://chromedriver.storage.googleapis.com/114.0.5735.90/chromedriver_linux64.zip
+        unzip chromedriver_linux64.zip
+        sudo mv chromedriver /usr/bin/chromedriver
+        sudo chmod +x /usr/bin/chromedriver
 
     - name: Install Python dependencies
       run: |
