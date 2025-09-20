@@ -2,8 +2,8 @@ name: Monitor MOSiR (Selenium)
 
 on:
   schedule:
-    - cron: '*/15 * * * *'
-  workflow_dispatch:
+    - cron: '*/15 * * * *'  # uruchamiaj co 15 minut
+  workflow_dispatch:         # pozwala uruchomić ręcznie
 
 jobs:
   run-monitor:
@@ -22,10 +22,9 @@ jobs:
         echo "ChromeDriver path:"
         which chromedriver
 
-- name: Install Python dependencies
-  run: |
-    pip install selenium beautifulsoup4
-
+    - name: Install Python dependencies
+      run: |
+        pip install selenium beautifulsoup4
 
     - name: Run monitor script
       run: python monitor.py
