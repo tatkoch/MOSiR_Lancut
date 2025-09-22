@@ -22,7 +22,7 @@ jobs:
 
     - name: Install Python dependencies
       run: |
-        pip install selenium beautifulsoup4 webdriver-manager pytz
+        pip install selenium beautifulsoup4 webdriver-manager pytz requests
 
     - name: Run monitor script
       run: python monitor.py
